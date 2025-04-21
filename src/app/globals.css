@@ -48,12 +48,12 @@ body::before {
 }
 
 /* Glow Effect for buttons and other elements */
-button, .glow-effect {
+.glow-effect {
   position: relative;
   overflow: hidden;
 }
 
-button::after, .glow-effect::after {
+.glow-effect::after {
   content: '';
   position: absolute;
   top: 0;
