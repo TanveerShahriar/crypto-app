@@ -52,7 +52,8 @@ const Register = () => {
       const data = await response.json();
   
       if (response.ok) {
-        router.push("/login");
+        localStorage.setItem('authToken', data.token);
+        router.push("/securitycode");
       } else {
         alert(data.message || "Error creating user");
       }
