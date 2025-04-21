@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero"
 import ImageGrid from "@/components/ImageGrid";
+import Path from "@/components/Path";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <div><Hero /></div>
         <div className="py-10"><ImageGrid /></div>
+        <div><Path /></div>
       </main>
     </div>
   );
