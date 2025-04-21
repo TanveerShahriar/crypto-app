@@ -1,0 +1,29 @@
+:root {
+  --glow-color-start: #B7BA31;
+  --glow-color-end: #372f10; 
+}
+
+.glowing-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.glowing-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.3;
+  filter: blur(1em);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, var(--glow-color-start), var(--glow-color-end));
+  pointer-events: none;
+  width: 760px;
+  height: 760px;
+  border-radius: 50%;
+}
