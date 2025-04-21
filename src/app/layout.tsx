@@ -51,7 +51,7 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main className="px-45">
+        <main>
           {children}
         </main>
       </body>
