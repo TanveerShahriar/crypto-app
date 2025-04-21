@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from 'next/image';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Register = () => {
   const [activeTab, setActiveTab] = useState("Sign Up"); // "Sign Up" or "Login"
@@ -13,8 +13,23 @@ const Register = () => {
     password: "",
   });
 
+  const [passwordValidLength, setPasswordValidLength] = useState(false);
+  const [passwordValidSpecial, setPasswordValidSpecial] = useState(false);
+  const [isFormComplete, setIsFormComplete] = useState(false); // Initialize as false
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const validatePassword = (password: string) => {
+    const isValidLength = password.length >= 8;
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    
+    setPasswordValidLength(isValidLength);
+    setPasswordValidSpecial(hasSpecialChar);
+
+    return isValidLength && hasSpecialChar;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,26 +41,34 @@ const Register = () => {
     setActiveTab(activeTab === "Sign Up" ? "Login" : "Sign Up");
   };
 
+  const checkFormComplete = () => {
+    const { name, email, phone, password } = formData;
+    const formIsComplete = name && email && phone && passwordValidLength && passwordValidSpecial;
+    setIsFormComplete(formIsComplete); // This ensures it's always a boolean value
+  };
+
+  useEffect(() => {
+    checkFormComplete();
+  }, [formData, passwordValidLength, passwordValidSpecial]);
+
   return (
     <div className="min-h-screen bg-black flex justify-center items-center bg-[url('/images/Register_BG.png')] bg-cover bg-center">
       <div className="p-10 rounded-lg w-[500px]">
         <div className="text-center text-white mb-6">
           <div className="ml-8 flex justify-center">
             <Image 
-                aria-hidden
-                src="/images/Logo.png"
-                alt="Logo icon"
-                width={36}
-                height={50}
-              />
+              aria-hidden
+              src="/images/Logo.png"
+              alt="Logo icon"
+              width={36}
+              height={50}
+            />
           </div>
           <h1 className="text-4xl font-semibold mb-2">
             {activeTab === "Sign Up" ? "Create an account" : "Log in to your account"}
           </h1>
           <p className="text-gray-400">
-            {activeTab === "Sign Up"
-              ? "Start your 30-day free trial."
-              : "Welcome back! Please enter your details."}
+            {activeTab === "Sign Up" ? "Start your 30-day free trial." : "Welcome back! Please enter your details."}
           </p>
         </div>
 
@@ -80,39 +103,79 @@ const Register = () => {
         {/* Sign Up Form */}
         {activeTab === "Sign Up" && (
           <form onSubmit={handleSubmit}>
+            <label className="text-white">Name</label>
             <input
               type="text"
               name="name"
               placeholder="Enter your name"
               value={formData.name}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                handleInputChange(e);
+                checkFormComplete();
+              }}
               className="w-full p-3 bg-transparent border rounded-lg text-white mb-4"
             />
+
+            <label className="text-white">Email</label>
             <input
               type="email"
               name="email"
               placeholder="Enter your email"
               value={formData.email}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                handleInputChange(e);
+                checkFormComplete();
+              }}
               className="w-full p-3 bg-transparent border rounded-lg text-white mb-4"
             />
+
+            <label className="text-white">Phone Number</label>
             <input
               type="text"
               name="phone"
               placeholder="Enter your phone number"
               value={formData.phone}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                handleInputChange(e);
+                checkFormComplete();
+              }}
               className="w-full p-3 bg-transparent border rounded-lg text-white mb-4"
             />
+
+            <label className="text-white">Password</label>
             <input
               type="password"
               name="password"
               placeholder="Create a password"
               value={formData.password}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                handleInputChange(e);
+                validatePassword(e.target.value);
+                checkFormComplete();
+              }}
               className="w-full p-3 bg-transparent border rounded-lg text-white mb-4"
             />
-            <button type="submit" className="w-full p-3 bg-[#FF5722] rounded-md text-white">
+
+            <div className="text-white mb-4">
+              <div className="flex items-center">
+                <span className={`mr-2 ${passwordValidLength ? "text-orange-500" : "text-gray-400"}`}>
+                  {passwordValidLength ? "✔" : "✘"}
+                </span>
+                <span>Must be at least 8 characters</span>
+              </div>
+              <div className="flex items-center">
+                <span className={`mr-2 ${passwordValidSpecial ? "text-orange-500" : "text-gray-400"}`}>
+                  {passwordValidSpecial ? "✔" : "✘"}
+                </span>
+                <span>Must contain one special character</span>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className={`w-full p-3 rounded-md text-white ${isFormComplete ? "bg-[#FF5722]" : "bg-[#7E7E7E]"}`}
+              disabled={!isFormComplete}
+            >
               Get Started
             </button>
           </form>
@@ -121,6 +184,7 @@ const Register = () => {
         {/* Log In Form */}
         {activeTab === "Login" && (
           <form onSubmit={handleSubmit}>
+            <label className="text-white">Email</label>
             <input
               type="email"
               name="email"
@@ -129,6 +193,8 @@ const Register = () => {
               onChange={handleInputChange}
               className="w-full p-3 bg-transparent border-b text-white mb-4"
             />
+
+            <label className="text-white">Password</label>
             <input
               type="password"
               name="password"
@@ -137,8 +203,9 @@ const Register = () => {
               onChange={handleInputChange}
               className="w-full p-3 bg-transparent border-b text-white mb-4"
             />
-            <div className="flex justify-between items-center">
-              <label className="text-white">
+            
+            <div className="flex justify-between items-center text-white mb-4">
+              <label className="flex items-center">
                 <input type="checkbox" className="mr-2" />
                 Remember for 30 days
               </label>
@@ -146,6 +213,7 @@ const Register = () => {
                 Forgot password?
               </a>
             </div>
+
             <button type="submit" className="w-full p-3 bg-[#FF5722] rounded-md text-white mt-4">
               Sign in
             </button>
