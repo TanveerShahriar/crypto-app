@@ -12,6 +12,8 @@ const Register = () => {
     email: "",
     phone: "",
     password: "",
+    loginemail: "",
+    loginpass: "",
   });
 
   const router = useRouter();
@@ -38,20 +40,40 @@ const Register = () => {
     e.preventDefault();
     console.log(formData);
 
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      router.push("/login");
-    } else {
-      alert(data.message || "Error creating user");
+    if (activeTab === "Sign Up") {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        router.push("/login");
+      } else {
+        alert(data.message || "Error creating user");
+      }
+    }
+    else {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        localStorage.setItem("authToken", data.token); 
+        router.push("/dashboard"); 
+      } else {
+        alert(data.message || "An error occurred");
+      }
     }
   };
 
@@ -70,7 +92,7 @@ const Register = () => {
   }, [formData, passwordValidLength, passwordValidSpecial]);
 
   return (
-    <div className="min-h-screen bg-black flex justify-center items-center bg-[url('/images/Register_BG.png')] bg-cover bg-center">
+    <div className="min-h-screen bg-black pt-30 flex justify-center items-center bg-[url('/images/Register_BG.png')] bg-cover bg-center">
       <div className="p-10 rounded-lg w-[500px]">
         <div className="text-center text-white mb-6">
           <div className="ml-8 flex justify-center">
@@ -202,21 +224,21 @@ const Register = () => {
             <label className="text-white">Email</label>
             <input
               type="email"
-              name="email"
+              name="loginemail"
               placeholder="Enter your email"
-              value={formData.email}
+              value={formData.loginemail}
               onChange={handleInputChange}
-              className="w-full p-3 bg-transparent border-b text-white mb-4"
+              className="w-full p-3 rounded-md bg-transparent border text-white mb-4"
             />
 
             <label className="text-white">Password</label>
             <input
               type="password"
-              name="password"
+              name="loginpass"
               placeholder="Enter your password"
-              value={formData.password}
+              value={formData.loginpass}
               onChange={handleInputChange}
-              className="w-full p-3 bg-transparent border-b text-white mb-4"
+              className="w-full p-3 rounded-md bg-transparent border text-white mb-4"
             />
             
             <div className="flex justify-between items-center text-white mb-4">
