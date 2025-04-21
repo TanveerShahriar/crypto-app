@@ -1,7 +1,7 @@
 const Hero = () => {
     return (
       <section className="text-white py-20 px-6 text-center">
-        <h1 className="text-[80px] font-extrabold leading-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#5200FF] to-[#FF3C6A]">
+        <h1 className="text-[80px] font-extrabold mb-6 bg-gradient-to-r from-[#e6007a] via-[#f0b90b] to-[#ff430f] text-transparent bg-clip-text">
           Swift Blockchain Revolution
         </h1>
         <p className="text-3xl max-w-4xl mx-auto">

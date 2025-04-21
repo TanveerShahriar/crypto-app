@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import "@/styles/imagegrid.css"
 
 const ImageGrid = () => {
   const images = [
@@ -17,13 +16,7 @@ const ImageGrid = () => {
   ];
 
   return (
-    <section className="relative px-16">
-      <div className="ml-145 mt-40 absolute inset-0 flex justify-center items-center z-0 glowing-container">
-        <div
-          className="glowing-btn"
-        ></div>
-      </div>
-
+    <section className="relative py-16 px-16 bg-[url('/images/BG_Blur.png')] bg-cover bg-center">
       <div className="grid grid-cols-6 gap-4 relative z-10">
         {images.map((src, index) => (
           <div
