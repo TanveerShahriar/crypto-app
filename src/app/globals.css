@@ -51,7 +51,6 @@ body::before {
 button, .glow-effect {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
 }
 
 button::after, .glow-effect::after {
