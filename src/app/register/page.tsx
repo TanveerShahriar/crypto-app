@@ -3,9 +3,10 @@
 import Link from "next/link";
 import Image from 'next/image';
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 
 const Register = () => {
-  const [activeTab, setActiveTab] = useState("Sign Up"); // "Sign Up" or "Login"
+  const [activeTab, setActiveTab] = useState("Sign Up");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,9 +14,10 @@ const Register = () => {
     password: "",
   });
 
+  const router = useRouter();
   const [passwordValidLength, setPasswordValidLength] = useState(false);
   const [passwordValidSpecial, setPasswordValidSpecial] = useState(false);
-  const [isFormComplete, setIsFormComplete] = useState(false); // Initialize as false
+  const [isFormComplete, setIsFormComplete] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -32,9 +34,25 @@ const Register = () => {
     return isValidLength && hasSpecialChar;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formData);
+
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      router.push("/login");
+    } else {
+      alert(data.message || "Error creating user");
+    }
   };
 
   const toggleTab = () => {
@@ -44,7 +62,7 @@ const Register = () => {
   const checkFormComplete = () => {
     const { name, email, phone, password } = formData;
     const formIsComplete = name && email && phone && passwordValidLength && passwordValidSpecial;
-    setIsFormComplete(formIsComplete); // This ensures it's always a boolean value
+    setIsFormComplete(formIsComplete);
   };
 
   useEffect(() => {
@@ -72,7 +90,6 @@ const Register = () => {
           </p>
         </div>
 
-        {/* Toggle between Sign Up and Login */}
         <div
           className="relative cursor-pointer w-full bg-[#0C0E12] border border-[22262F] h-[40px] rounded-full mb-4"
           onClick={toggleTab}
@@ -100,7 +117,6 @@ const Register = () => {
           </span>
         </div>
 
-        {/* Sign Up Form */}
         {activeTab === "Sign Up" && (
           <form onSubmit={handleSubmit}>
             <label className="text-white">Name</label>
@@ -181,7 +197,6 @@ const Register = () => {
           </form>
         )}
 
-        {/* Log In Form */}
         {activeTab === "Login" && (
           <form onSubmit={handleSubmit}>
             <label className="text-white">Email</label>
