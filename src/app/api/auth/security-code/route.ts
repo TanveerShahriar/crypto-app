@@ -17,6 +17,10 @@ export async function POST(req: Request) {
 
     const { db } = await connectToDatabase();
 
+    if (typeof decoded === "string") {
+      throw new Error("Invalid token payload");
+    }
+
     const user = await db.collection("users").findOne({
       _id: new ObjectId(decoded.id),
     });
