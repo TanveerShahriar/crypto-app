@@ -1,6 +1,7 @@
 import CryptoTable from "@/components/CryptoTable";
 import Hero from "@/components/Hero"
 import ImageGrid from "@/components/ImageGrid";
+import Navbar from "@/components/Navbar";
 import Path from "@/components/Path";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
         <div className="py-10"><ImageGrid /></div>
         <div><Path /></div>
         <div className="w-full"><CryptoTable /></div>
+        <div><Navbar /></div>
       </main>
     </div>
   );
