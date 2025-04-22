@@ -1,22 +1,39 @@
-"use client";"use client";
-
+"use client";
 import { useState } from "react";
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSlot,
+  } from "@/components/ui/input-otp";
 
 const Dashboard = () => {
-  const [vipTransfer, setVipTransfer] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [value, setValue] = useState("");
   const [amount, setAmount] = useState("");
   const [username, setUsername] = useState("");
   const [memo, setMemo] = useState("");
+  const [isVipTransferEnabled, setIsVipTransferEnabled] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Transaction Data:", { amount, username, memo, vipTransfer });
-    // Submit to the backend here for actual functionality
+    console.log("Transfer Info:", { amount, username, memo });
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setValue("");
+    setIsModalOpen(false);
+  };
+
+  const handleVipTransferToggle = () => {
+    setIsVipTransferEnabled(!isVipTransferEnabled);
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white flex flex-col items-center p-6 pt-50">
-      {/* Asset Section */}
+    <div className="min-h-screen bg-[#121212] text-white flex flex-col items-center p-6 pt-50 relative">
       <div className="bg-[#1F1F1F] w-full max-w-xl p-6 rounded-lg mb-8">
         <h2 className="text-3xl font-semibold mb-4">My Asset</h2>
         <div className="flex justify-between items-center">
@@ -26,24 +43,22 @@ const Dashboard = () => {
         <div className="mt-4 text-sm text-gray-400">Available Balance: VIP 3</div>
       </div>
 
-      {/* Direct Withdraw Section */}
       <div className="bg-[#1F1F1F] w-full max-w-xl p-6 rounded-lg mb-8">
         <h2 className="text-3xl font-semibold mb-4">Direct Withdraw</h2>
         <form onSubmit={handleSubmit}>
-          {/* VIP Transfer Toggle Slider */}
           <div className="flex items-center justify-between mb-4">
             <label className="text-lg">VIP Transfer</label>
             <label className="inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
-                checked={vipTransfer}
-                onChange={() => setVipTransfer(!vipTransfer)}
+                checked={isVipTransferEnabled} 
+                onChange={handleVipTransferToggle} 
                 className="toggle-checkbox hidden"
               />
               <span className="toggle-label block w-14 h-8 bg-[#ccc] rounded-full"></span>
             </label>
           </div>
-          
+
           <div className="mb-4">
             <label className="block text-sm mb-2">Amount</label>
             <input
@@ -76,7 +91,8 @@ const Dashboard = () => {
           </div>
           <div className="flex justify-between mt-6">
             <button
-              type="submit"
+              type="button"
+              onClick={openModal}
               className="bg-[#FF5722] px-6 py-3 text-white rounded-lg"
             >
               VIP Transfer
@@ -91,7 +107,6 @@ const Dashboard = () => {
         </form>
       </div>
 
-      {/* Transaction History Section */}
       <div className="bg-[#1F1F1F] w-full max-w-xl p-6 rounded-lg">
         <h2 className="text-3xl font-semibold mb-4">Transaction history</h2>
         <table className="w-full text-sm text-gray-400">
@@ -117,6 +132,71 @@ const Dashboard = () => {
           </tbody>
         </table>
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity- backdrop-blur-sm flex justify-center items-center z-50">
+            <div className="bg-[#1F1F1F] p-6 rounded-lg w-[500px] relative">
+            <button
+                className="absolute top-2 right-2 text-white"
+                onClick={closeModal}
+            >
+                &times;
+            </button>
+            <h2 className="text-3xl text-center text-white mb-4">
+                Please input your security code to process the withdrawal.
+            </h2>
+            <div className="text-center mb-6">
+                <div className="flex justify-center gap-4 mb-4">
+                <InputOTP maxLength={4} value={value} onChange={(value) => setValue(value)}>
+                    <InputOTPGroup>
+                        <InputOTPSlot
+                        index={0}
+                        className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
+                        />
+                    </InputOTPGroup>
+
+                    <InputOTPGroup>
+                        <InputOTPSlot
+                        index={1}
+                        className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
+                        />
+                    </InputOTPGroup>
+
+                    <InputOTPGroup>
+                        <InputOTPSlot
+                        index={2}
+                        className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
+                        />
+                    </InputOTPGroup>
+
+                    <InputOTPGroup>
+                        <InputOTPSlot
+                        index={3}
+                        className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
+                        />
+                    </InputOTPGroup>
+                </InputOTP>
+                </div>
+            </div>
+
+            <div className="flex justify-between items-center">
+                <button
+                className="w-1/3 p-3 text-white border border-orange-500 rounded-md"
+                onClick={closeModal}
+                >
+                Cancel
+                </button>
+                <button
+                type="submit"
+                className="w-1/3 p-3 bg-[#FF5722] text-white rounded-md"
+                >
+                Verify
+                </button>
+            </div>
+            </div>
+        </div>
+        )}
+
     </div>
   );
 };
