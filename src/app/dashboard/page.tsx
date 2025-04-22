@@ -85,24 +85,24 @@ const Dashboard = () => {
 					</div>
 					<div className="mb-4">
 						<label className="block text-sm mb-2">
-							Recipient VIP Username
+							{isVipTransferEnabled ? "Recipient VIP Username" : "TRC20 Wallet Address"}
 						</label>
 						<input
 							type="text"
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
 							className="w-full p-3 bg-transparent border border-gray-700 text-white rounded-lg"
-							placeholder="Enter recipient username"
+							placeholder={isVipTransferEnabled ? "Enter recipient username" : "Enter Wallet Address"}
 						/>
 					</div>
 					<div className="mb-4">
-						<label className="block text-sm mb-2">Memo</label>
+						<label className="block text-sm mb-2">{isVipTransferEnabled ? "Network" : "Memo"}</label>
 						<input
 							type="text"
 							value={memo}
 							onChange={(e) => setMemo(e.target.value)}
 							className="w-full p-3 bg-transparent border border-gray-700 text-white rounded-lg"
-							placeholder="Write a memo"
+							placeholder={isVipTransferEnabled ? "Write" : "TRC20 Recommended"}
 						/>
 					</div>
 					<div className="flex justify-between mt-6">
