@@ -14,7 +14,7 @@ const Path = () => {
 
   return (
     <section className="py-16 px-16">
-        <h1 className='text-center font-extrabold text-7xl mb-16'>Earn while walking</h1>
+        <h1 className='text-center font-extrabold text-white text-7xl mb-16'>Earn while walking</h1>
       <div className="flex flex-wrap justify-center gap-20 grid grid-cols-4">
         {icons.map((icon, index) => (
           <div key={index} className="relative flex flex-col justify-center items-center">

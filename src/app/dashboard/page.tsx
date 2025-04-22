@@ -1,13 +1,10 @@
 "use client";
 import { useState } from "react";
-import {
-    InputOTP,
-    InputOTPGroup,
-    InputOTPSlot,
-  } from "@/components/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); // Success modal state
   const [value, setValue] = useState("");
   const [amount, setAmount] = useState("");
   const [username, setUsername] = useState("");
@@ -28,12 +25,22 @@ const Dashboard = () => {
     setIsModalOpen(false);
   };
 
+  const openSuccessModal = () => {
+    setIsModalOpen(false);  // Close the security code modal
+    setIsSuccessModalOpen(true);  // Open the success modal
+  };
+
+  const closeSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+  };
+
   const handleVipTransferToggle = () => {
     setIsVipTransferEnabled(!isVipTransferEnabled);
   };
 
   return (
     <div className="min-h-screen bg-[#121212] text-white flex flex-col items-center p-6 pt-50 relative">
+      {/* Asset Section */}
       <div className="bg-[#1F1F1F] w-full max-w-xl p-6 rounded-lg mb-8">
         <h2 className="text-3xl font-semibold mb-4">My Asset</h2>
         <div className="flex justify-between items-center">
@@ -43,6 +50,7 @@ const Dashboard = () => {
         <div className="mt-4 text-sm text-gray-400">Available Balance: VIP 3</div>
       </div>
 
+      {/* Direct Withdraw Section */}
       <div className="bg-[#1F1F1F] w-full max-w-xl p-6 rounded-lg mb-8">
         <h2 className="text-3xl font-semibold mb-4">Direct Withdraw</h2>
         <form onSubmit={handleSubmit}>
@@ -51,8 +59,8 @@ const Dashboard = () => {
             <label className="inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
-                checked={isVipTransferEnabled} 
-                onChange={handleVipTransferToggle} 
+                checked={isVipTransferEnabled}
+                onChange={handleVipTransferToggle}
                 className="toggle-checkbox hidden"
               />
               <span className="toggle-label block w-14 h-8 bg-[#ccc] rounded-full"></span>
@@ -107,6 +115,7 @@ const Dashboard = () => {
         </form>
       </div>
 
+      {/* Transaction History Section */}
       <div className="bg-[#1F1F1F] w-full max-w-xl p-6 rounded-lg">
         <h2 className="text-3xl font-semibold mb-4">Transaction history</h2>
         <table className="w-full text-sm text-gray-400">
@@ -133,70 +142,99 @@ const Dashboard = () => {
         </table>
       </div>
 
+      {/* Modal for Security Code */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity- backdrop-blur-sm flex justify-center items-center z-50">
-            <div className="bg-[#1F1F1F] p-6 rounded-lg w-[500px] relative">
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+          <div className="bg-[#1F1F1F] p-6 rounded-lg w-[500px] relative">
             <button
-                className="absolute top-2 right-2 text-white"
-                onClick={closeModal}
+              className="absolute top-2 right-2 text-white"
+              onClick={closeModal}
             >
-                &times;
+              &times;
             </button>
             <h2 className="text-3xl text-center text-white mb-4">
-                Please input your security code to process the withdrawal.
+              Please input your security code to process the withdrawal.
             </h2>
             <div className="text-center mb-6">
-                <div className="flex justify-center gap-4 mb-4">
-                <InputOTP maxLength={4} value={value} onChange={(value) => setValue(value)}>
-                    <InputOTPGroup>
-                        <InputOTPSlot
-                        index={0}
-                        className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
-                        />
-                    </InputOTPGroup>
+              <div className="flex justify-center gap-4 mb-4">
+              <InputOTP maxLength={4} value={value} onChange={(value) => setValue(value)}>
+                <InputOTPGroup>
+                    <InputOTPSlot
+                    index={0}
+                    className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
+                    />
+                </InputOTPGroup>
 
-                    <InputOTPGroup>
-                        <InputOTPSlot
-                        index={1}
-                        className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
-                        />
-                    </InputOTPGroup>
+                <InputOTPGroup>
+                    <InputOTPSlot
+                    index={1}
+                    className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
+                    />
+                </InputOTPGroup>
 
-                    <InputOTPGroup>
-                        <InputOTPSlot
-                        index={2}
-                        className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
-                        />
-                    </InputOTPGroup>
+                <InputOTPGroup>
+                    <InputOTPSlot
+                    index={2}
+                    className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
+                    />
+                </InputOTPGroup>
 
-                    <InputOTPGroup>
-                        <InputOTPSlot
-                        index={3}
-                        className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
-                        />
-                    </InputOTPGroup>
+                <InputOTPGroup>
+                    <InputOTPSlot
+                    index={3}
+                    className="w-16 h-16 text-2xl font-bold text-white border-2 border-orange-500 rounded-lg text-center"
+                    />
+                </InputOTPGroup>
                 </InputOTP>
-                </div>
+              </div>
             </div>
 
             <div className="flex justify-between items-center">
-                <button
+              <button
                 className="w-1/3 p-3 text-white border border-orange-500 rounded-md"
                 onClick={closeModal}
-                >
+              >
                 Cancel
-                </button>
-                <button
+              </button>
+              <button
                 type="submit"
                 className="w-1/3 p-3 bg-[#FF5722] text-white rounded-md"
-                >
+                onClick={openSuccessModal}
+              >
                 Verify
-                </button>
+              </button>
             </div>
-            </div>
+          </div>
         </div>
-        )}
+      )}
 
+      {/* Success Modal */}
+      {isSuccessModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+          <div className="bg-[#1F1F1F] p-6 rounded-lg w-[400px] relative">
+            <h2 className="text-3xl text-center text-white mb-4">
+              Transaction Failed!
+            </h2>
+            <p className="font-normal text-sm text-center text-[#94979C]">Sorry! We couldn't process your transaction at this moment</p>
+
+            <div className="flex justify-between items-center pt-10">
+              <button
+                className="w-1/3 p-3 text-white border border-orange-500 rounded-md"
+                onClick={closeSuccessModal}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="w-1/3 p-3 bg-[#FF5722] text-white rounded-md"
+                onClick={closeSuccessModal}
+              >
+                Go Back
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
