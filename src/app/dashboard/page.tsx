@@ -13,7 +13,6 @@ const Dashboard = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Transfer Info:", { amount, username, memo });
   };
 
   const openModal = () => {

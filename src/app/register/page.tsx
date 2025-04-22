@@ -37,7 +37,6 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
 
     if (activeTab === "Sign Up") {
       const response = await fetch("/api/auth/register", {

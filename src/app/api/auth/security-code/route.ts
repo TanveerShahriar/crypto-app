@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   try {
     const { securityCode, token } = await req.json();
     
-    const decoded = verify(token, process.env.JWT_SECRET);
+    const decoded = verify(token, process.env.JWT_SECRET!);
     
     if (!decoded || !decoded.id) {
       return new Response(
@@ -27,8 +27,6 @@ export async function POST(req: Request) {
         { status: 404 }
       );
     }
-
-    console.log(decoded.userId);
     
     await db.collection("users").updateOne(
       { _id: new ObjectId(decoded.id) },

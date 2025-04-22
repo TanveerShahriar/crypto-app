@@ -18,7 +18,6 @@ const SecurityToken = () => {
     const token = localStorage.getItem("authToken");
     
     if (!token) {
-      console.log("User not authenticated.");
       return;
     }
 
@@ -26,8 +25,6 @@ const SecurityToken = () => {
       securityCode: value,
       token: token
     };
-
-    console.log(data);
     
     const response = await fetch("/api/auth/security-code", {
         method: "POST",
@@ -40,7 +37,6 @@ const SecurityToken = () => {
       const result = await response.json();
       
       if (response.ok) {
-        console.log("Security Code Saved Successfully", result);
         router.push("/dashboard"); 
       } else {
         console.error("Error:", result.message);
