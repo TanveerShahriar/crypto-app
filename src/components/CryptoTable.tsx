@@ -33,11 +33,11 @@ const CryptoTable = () => {
 
 				<div className="relative flex items-center gap-6">
 					<div
-						className="relative cursor-pointer w-[240px] h-[40px] bg-[#ccc] rounded-full"
+						className="relative cursor-pointer w-[240px] h-[40px] bg-[#171B26] rounded-full"
 						onClick={toggleTab}
 					>
 						<div
-							className={`absolute h-[40px] bg-[#2196F3] rounded-full transition-all duration-300 ${
+							className={`absolute h-[40px] bg-[#D9D9D9] rounded-full transition-all duration-300 ${
 								activeTab === "Newly Added"
 									? "translate-x-[100px] w-[140px]"
 									: "w-[100px]"
