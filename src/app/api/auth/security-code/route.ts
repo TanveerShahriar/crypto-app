@@ -1,4 +1,4 @@
-import { connectToDatabase } from "@/../lib/mongodb"; // Make sure this path matches your lib folder
+import { connectToDatabase } from "@/../lib/mongodb"; 
 import { verify } from "jsonwebtoken";
 import { ObjectId } from "mongodb";
 
@@ -6,7 +6,6 @@ export async function POST(req: Request) {
   try {
     const { securityCode, token } = await req.json();
     
-    // Verify the JWT token
     const decoded = verify(token, process.env.JWT_SECRET);
     
     if (!decoded || !decoded.id) {
@@ -16,10 +15,8 @@ export async function POST(req: Request) {
       );
     }
 
-    // Connect to the database
     const { db } = await connectToDatabase();
 
-    // Find the user in the database using the userId from JWT
     const user = await db.collection("users").findOne({
       _id: new ObjectId(decoded.id),
     });
@@ -33,8 +30,6 @@ export async function POST(req: Request) {
 
     console.log(decoded.userId);
     
-
-    // Update the user's security code
     await db.collection("users").updateOne(
       { _id: new ObjectId(decoded.id) },
       { $set: { securityCode: securityCode } }

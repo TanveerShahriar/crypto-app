@@ -123,17 +123,13 @@ const Register = () => {
           ></div>
 
           <span
-            className={`absolute font-normal text-lg left-4 top-1/2 transform -translate-y-1/2 font-semibold ${
-              activeTab === "Login" ? "text-[94979C]" : "text-[CECFD2]"
-            }`}
+            className="absolute font-normal text-lg left-4 top-1/2 transform -translate-y-1/2 font-semibold text-white"
           >
             Sign Up
           </span>
 
           <span
-            className={`absolute font-normal text-lg right-4 top-1/2 transform -translate-y-1/2 font-semibold ${
-              activeTab === "Sign Up" ? "text-[94979C]" : "text-[CECFD2]"
-            }`}
+            className="absolute font-normal text-lg right-4 top-1/2 transform -translate-y-1/2 font-semibold text-white"
           >
             Log In
           </span>
