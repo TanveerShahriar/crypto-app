@@ -82,7 +82,9 @@ const Register = () => {
 
   const checkFormComplete = () => {
     const { name, email, phone } = formData;
-    const formIsComplete = name && email && phone && passwordValidLength && passwordValidSpecial;
+    const formIsComplete = Boolean(
+      name && email && phone && passwordValidLength && passwordValidSpecial
+    );
     setIsFormComplete(formIsComplete);
   };
 
