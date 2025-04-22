@@ -215,7 +215,7 @@ const Dashboard = () => {
             <h2 className="text-3xl text-center text-white mb-4">
               Transaction Failed!
             </h2>
-            <p className="font-normal text-sm text-center text-[#94979C]">Sorry! We couldn't process your transaction at this moment</p>
+            <p className="font-normal text-sm text-center text-[#94979C]">Sorry! We could not process your transaction at this moment</p>
 
             <div className="flex justify-between items-center pt-10">
               <button
