@@ -20,6 +20,7 @@ const NavBar = () => {
             top: '50%', 
             left: '50%', 
             transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none',
           }}>
 
         </div>
@@ -27,10 +28,10 @@ const NavBar = () => {
         {menuItems.map((item) => (
             <button
             key={item.label}
-            className="flex items-center gap-2 px-8 py-2 my-auto bg-zinc-200 rounded-full text-black text-sm hover:bg-zinc-300 transition h-[48px]"
+            className="flex items-center gap-2 px-6 py-2 my-auto bg-zinc-200 rounded-full text-black text-sm hover:bg-zinc-300 transition h-[48px] w-[148px]"
             >
-            <Image src={item.icon} alt={item.label} width={16} height={16} />
-            <span>{item.label}</span>
+              <Image src={item.icon} alt={item.label} width={16} height={16} />
+              <span className="mr-4">{item.label}</span>
             </button>
         ))}
         </div>
