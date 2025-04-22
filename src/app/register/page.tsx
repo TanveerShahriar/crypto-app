@@ -124,13 +124,13 @@ const Register = () => {
           ></div>
 
           <span
-            className="absolute font-normal text-sm left-20 top-1/2 transform -translate-y-1/2 font-semibold text-white"
+            className="absolute font-normal text-sm left-20 top-1/2 transform -translate-y-1/2 text-[#CFCFD2]"
           >
             Sign Up
           </span>
 
           <span
-            className="absolute font-normal text-sm right-20 top-1/2 transform -translate-y-1/2 font-semibold text-white"
+            className="absolute font-normal text-sm right-20 top-1/2 transform -translate-y-1/2 text-[#CFCFD2]"
           >
             Log In
           </span>
