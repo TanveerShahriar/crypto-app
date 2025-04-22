@@ -7,6 +7,10 @@ export async function POST(req: Request) {
     const { securityCode, token } = await req.json();
     
     const decoded = verify(token, process.env.JWT_SECRET!);
+
+    if (typeof decoded === "string") {
+      throw new Error("Invalid token payload");
+    }
     
     if (!decoded || !decoded.id) {
       return new Response(
@@ -16,10 +20,6 @@ export async function POST(req: Request) {
     }
 
     const { db } = await connectToDatabase();
-
-    if (typeof decoded === "string") {
-      throw new Error("Invalid token payload");
-    }
 
     const user = await db.collection("users").findOne({
       _id: new ObjectId(decoded.id),
