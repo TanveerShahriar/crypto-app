@@ -25,72 +25,99 @@ const CryptoTable = () => {
   const displayData = activeTab === "Trending" ? trendingData : newlyAddedData;
 
   return (
-    <section className="py-8 px-16">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-semibold text-[#C4D4E4]">Popular Cryptocurrencies</h1>
+		<section className="py-8 px-16">
+			<div className="flex items-center justify-between mb-6">
+				<h1 className="text-3xl font-semibold text-[#C4D4E4]">
+					Popular Cryptocurrencies
+				</h1>
 
-        <div className="relative flex items-center gap-6">
-          <div
-            className="relative cursor-pointer w-[240px] h-[40px] bg-[#ccc] rounded-full"
-            onClick={toggleTab}
-          >
-            <div
-              className={`absolute w-[140px] h-[40px] bg-[#2196F3] rounded-full transition-all duration-300 ${
-                activeTab === "Newly Added" ? "translate-x-[100px]" : ""
-              }`}
-            ></div>
+				<div className="relative flex items-center gap-6">
+					<div
+						className="relative cursor-pointer w-[240px] h-[40px] bg-[#ccc] rounded-full"
+						onClick={toggleTab}
+					>
+						<div
+							className={`absolute h-[40px] bg-[#2196F3] rounded-full transition-all duration-300 ${
+								activeTab === "Newly Added"
+									? "translate-x-[100px] w-[140px]"
+									: "w-[100px]"
+							}`}
+						></div>
 
-            <span
-              className={`absolute font-normal text-lg left-4 top-1/2 transform -translate-y-1/2 font-semibold ${
-                activeTab === "Newly Added" ? "opacity-0 text-white" : "opacity-100 text-black"
-              }`}
-            >
-              Trending
-            </span>
+						<span
+							className={`absolute font-normal text-lg left-4 top-1/2 transform -translate-y-1/2 font-semibold ${
+								activeTab === "Newly Added"
+									? "opacity-100 text-white"
+									: "opacity-100 text-black"
+							}`}
+						>
+							Trending
+						</span>
 
-            <span
-              className={`absolute font-normal text-lg right-4 top-1/2 transform -translate-y-1/2 font-semibold ${
-                activeTab === "Trending" ? "opacity-0 text-white" : "opacity-100 text-black"
-              }`}
-            >
-              Newly Added
-            </span>
-          </div>
-        </div>
-      </div>
+						<span
+							className={`absolute font-normal text-lg right-4 top-1/2 transform -translate-y-1/2 font-semibold ${
+								activeTab === "Trending"
+									? "opacity-100 text-white"
+									: "opacity-100 text-black"
+							}`}
+						>
+							Newly Added
+						</span>
+					</div>
+				</div>
+			</div>
 
-      <div className="overflow-x-auto bg-black rounded-lg shadow-lg w-full">
-        <table className="w-full text-white">
-          <thead>
-            <tr className="border-b border-gray-700">
-              <th className="py-3 px-6 text-left">Asset</th>
-              <th className="py-3 px-6 text-left">Price</th>
-              <th className="py-3 px-6 text-left">Change (24h)</th>
-              <th className="py-3 px-6 text-left">Volume</th>
-              <th className="py-3 px-6 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {displayData.map((crypto, index) => (
-              <tr key={index} className="border-b border-gray-700">
-                <td className="py-10 px-6 flex items-center gap-3">
-                  <img src={crypto.logo} alt={crypto.name} width={50} height={50} className="rounded-full" />
-                  {crypto.asset}
-                </td>
-                <td className="py-10 px-6">{crypto.price}</td>
-                <td className={`py-10 px-6 ${crypto.change.startsWith("-") ? "text-red-500" : "text-green-500"}`}>
-                  {crypto.change}
-                </td>
-                <td className="py-10 px-6">{crypto.volume}</td>
-                <td className="py-10 px-6">
-                  <button className="bg-[#7E7E7E33] px-4 py-2 rounded-full hover:bg-gray-600">Trade</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
+			<div className="overflow-x-auto bg-black rounded-lg shadow-lg w-full">
+				<table className="w-full text-white">
+					<thead>
+						<tr className="border-b border-gray-700">
+							<th className="py-3 px-6 text-left">Asset</th>
+							<th className="py-3 px-6 text-left">Price</th>
+							<th className="py-3 px-6 text-left">
+								Change (24h)
+							</th>
+							<th className="py-3 px-6 text-left">Volume</th>
+							<th className="py-3 px-6 text-left">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{displayData.map((crypto, index) => (
+							<tr
+								key={index}
+								className="border-b border-gray-700"
+							>
+								<td className="py-10 px-6 flex items-center gap-3">
+									<img
+										src={crypto.logo}
+										alt={crypto.name}
+										width={50}
+										height={50}
+										className="rounded-full"
+									/>
+									{crypto.asset}
+								</td>
+								<td className="py-10 px-6">{crypto.price}</td>
+								<td
+									className={`py-10 px-6 ${
+										crypto.change.startsWith("-")
+											? "text-red-500"
+											: "text-green-500"
+									}`}
+								>
+									{crypto.change}
+								</td>
+								<td className="py-10 px-6">{crypto.volume}</td>
+								<td className="py-10 px-6">
+									<button className="bg-[#7E7E7E33] px-4 py-2 rounded-full hover:bg-gray-600">
+										Trade
+									</button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</section>
   );
 };
 
