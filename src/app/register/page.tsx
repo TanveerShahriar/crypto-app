@@ -52,7 +52,7 @@ const Register = () => {
   
       if (response.ok) {
         localStorage.setItem('authToken', data.token);
-        router.push("/securitycode");
+        router.push("/securitytoken");
       } else {
         alert(data.message || "Error creating user");
       }
