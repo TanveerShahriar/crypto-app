@@ -118,19 +118,19 @@ const Register = () => {
           onClick={toggleTab}
         >
           <div
-            className={`absolute w-1/2 h-full bg-[#373A41] rounded-full transition-all duration-300 ${
+            className={`absolute w-1/2 h-full bg-[#13161B] border rounded-full transition-all duration-300 ${
               activeTab === "Login" ? "translate-x-[100%]" : ""
             }`}
           ></div>
 
           <span
-            className="absolute font-normal text-lg left-20 top-1/2 transform -translate-y-1/2 font-semibold text-white"
+            className="absolute font-normal text-sm left-20 top-1/2 transform -translate-y-1/2 font-semibold text-white"
           >
             Sign Up
           </span>
 
           <span
-            className="absolute font-normal text-lg right-20 top-1/2 transform -translate-y-1/2 font-semibold text-white"
+            className="absolute font-normal text-sm right-20 top-1/2 transform -translate-y-1/2 font-semibold text-white"
           >
             Log In
           </span>
