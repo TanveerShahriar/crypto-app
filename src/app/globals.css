@@ -68,6 +68,39 @@ body {
   z-index: -1;
 }
 
+/* Tailwind Custom Slider Styles (global.css or your component) */
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #FF5722; /* Orange color */
+}
+
+.toggle-checkbox:checked + .toggle-label:before {
+  transform: translateX(26px);
+}
+
+.toggle-label {
+  position: relative;
+  display: block;
+  width: 3.5rem;
+  height: 1.75rem;
+  background-color: #ccc;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-label:before {
+  content: "";
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: white;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+
 @keyframes glowing {
   0% {
     background-position: 400% 0%;
