@@ -93,7 +93,7 @@ const Register = () => {
   }, [formData, passwordValidLength, passwordValidSpecial]);
 
   return (
-    <div className="min-h-screen bg-black pt-30 flex justify-center items-center bg-[url('/images/Register_BG.png')] bg-cover bg-center">
+    <div className="min-h-screen bg-black py-30 flex justify-center items-center bg-[url('/images/Register_BG.png')] bg-cover bg-center">
       <div className="p-10 rounded-lg w-[500px]">
         <div className="text-center text-white mb-6">
           <div className="ml-8 mb-8 flex justify-center">

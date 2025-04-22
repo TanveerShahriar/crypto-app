@@ -42,7 +42,7 @@ const Dashboard = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-[#121212] text-white flex flex-col items-center p-6 pt-50 relative">
+		<div className="min-h-screen bg-[#121212] text-white flex flex-col items-center p-6 py-50 relative">
 			{/* Asset Section */}
 			<div className="bg-[#1F1F1F] w-full max-w-xl p-6 rounded-lg mb-8">
 				<h2 className="text-3xl font-semibold mb-4">My Asset</h2>

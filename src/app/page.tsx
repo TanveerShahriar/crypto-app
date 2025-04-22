@@ -1,7 +1,6 @@
 import CryptoTable from "@/components/CryptoTable";
 import Hero from "@/components/Hero"
 import ImageGrid from "@/components/ImageGrid";
-import NavBar from "@/components/Navbar";
 import Path from "@/components/Path";
 
 export default function Home() {
@@ -11,7 +10,6 @@ export default function Home() {
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start w-full px-65">
         <div><Hero /></div>
         <div className="py-10"><ImageGrid /></div>
-        <div><NavBar /></div>
         <div><Path /></div>
         <div className="w-full"><CryptoTable /></div>
       </main>
